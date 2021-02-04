@@ -24,4 +24,4 @@ steps:
     Action: 'Swap Slots'
     WebAppName: 'qwerty-123456789'
     ResourceGroupName: 'rg-devops-test-1'
-    SourceSlot: 'qwerty-123456789-prod'
+    SourceSlot: 'prod'
