@@ -22,6 +22,6 @@ steps:
   inputs:
     azureSubscription: 'DevopsTest1-serviceconnection'
     Action: 'Swap Slots'
-    WebAppName: 'qwerty'
+    WebAppName: 'qwerty-123456789'
     ResourceGroupName: 'rg-devops-test-1'
     SourceSlot: 'prod'
