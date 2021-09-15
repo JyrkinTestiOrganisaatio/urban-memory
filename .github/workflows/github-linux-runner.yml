@@ -1,7 +1,7 @@
 name: GitHub linux runner Demo
 on: [push]
 jobs:
-  Explore-GitHub-Actions:
+  Explore-GitHub-Actions-Linux:
     runs-on: [self-hosted, Linux]
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
