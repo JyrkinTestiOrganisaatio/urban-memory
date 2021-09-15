@@ -1,0 +1,18 @@
+name: Create issues action
+
+on: [push, pull_request]
+
+jobs:
+  create_issue:
+    name: Create Issue
+    runs-on: ubuntu-latest
+    steps:
+      - name: issue-bot
+        uses: imjohnbo/issue-bot@v3
+        with:
+          assignees: 'JyrkiHei' # GitHub handles without the @
+          labels: ci
+          pinned: false
+          close-previous: false
+          title: Test failure
+          body: '...yo {{ assignees }}, some error messages related to the broken test...'
