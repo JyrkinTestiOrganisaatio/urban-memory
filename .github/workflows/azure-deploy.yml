@@ -1,0 +1,21 @@
+on:
+  release:
+    types: [created]
+
+env:
+  AZURE_WEBAPP_NAME: storm-actions-tester    # set this to your application's name
+  AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
+  NODE_VERSION: '10.x'                # set this to the node version to use
+
+jobs:
+  build-and-deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+    - uses: actions/checkout@v2
+    - name: Tulosta jotain
+      run: echo "Jotain!"
+      
+          
+
