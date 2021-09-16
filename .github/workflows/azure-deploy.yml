@@ -11,8 +11,8 @@ env:
   NODE_VERSION: '10.x'                # set this to the node version to use
 
 jobs:
-  build-and-deploy:
-    name: Build and Deploy
+  build:
+    name: Build and test
     runs-on: ubuntu-latest
     environment: production
     steps:
