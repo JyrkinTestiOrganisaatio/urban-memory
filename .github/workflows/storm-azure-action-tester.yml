@@ -1,0 +1,57 @@
+name: Storm Azure Demo v2
+
+on:
+  workflow_dispatch: #manual trigger
+  release:
+    types: [created]
+
+env:
+  AZURE_WEBAPP_NAME: storm-actions-tester
+  AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
+  NODE_VERSION: '10.x'                # set this to the node version to use
+
+jobs:
+  build:
+    name: Build and test
+    runs-on: ubuntu-latest
+    environment: production
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.3.4
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.4.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: NPM
+        run: yarn
+      - name: Run tests
+        run: yarn test
+      - name: Build PROD version
+        run: yarn build
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2.2.4
+        with:
+          name: artifact
+          path: build
+  deploy:
+    name: Deploy
+    runs-on: [self-hosted, Linux]
+    needs: build
+    
+    steps:
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v2.0.10
+        with:
+          name: artifact
+          path: ${{ github.workspace}}/site
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDS }}
+      - name: 'Deploy to Azure WebApp'
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          package: ${{ github.workspace}}/site
+          startup-command: "pm2 serve /home/site/wwwroot --nodaemon --spa"
