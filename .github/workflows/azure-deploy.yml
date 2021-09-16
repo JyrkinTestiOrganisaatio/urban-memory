@@ -1,3 +1,5 @@
+name: Storm Azure Demo
+
 on:
   release:
     types: [created]
